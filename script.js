@@ -26,3 +26,24 @@ const searchObject = (parameter, value) => {
   });
   return [exists, alarmObject, objIndex];
 };
+
+function displayTimer() {
+  let date = new Date();
+  let [hours, minutes, seconds] = [
+    appendZero(date.getHours()),
+    appendZero(date.getMinutes()),
+    appendZero(date.getSeconds()),
+  ];
+
+  timerRef.innerHTML = `${hours}:${minutes}:${seconds}`;
+}
+
+window.onload = () => {
+  setInterval(displayTimer);
+  initialHour = 0;
+  initialMinute = 0;
+  alarmIndex = 0;
+  alarmsArray = [];
+  hourInput.value = appendZero(initialHour);
+  minuteInput.value = appendZero(initialMinute);
+};
