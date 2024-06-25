@@ -36,7 +36,27 @@ function displayTimer() {
   ];
 
   timerRef.innerHTML = `${hours}:${minutes}:${seconds}`;
+
+  //Alarm
+  alarmsArray.forEach((alarm, index) => {
+    if (alarm.isActive) {
+      if (
+        `${alarm.alarmHour}: ${alarm.alarmMinute}` === `${hours}:${minutes}`
+      ) {
+        alarmSound.play();
+        alarmSound.loop = true;
+      }
+    }
+  });
 }
+
+const InputCheck = (inputValue) => {
+  inputValue = parseInt(inputValue);
+  if (inputValue < 10) {
+    inputValue = appendZero(inputValue);
+  }
+  return inputValue;
+};
 
 window.onload = () => {
   setInterval(displayTimer);
