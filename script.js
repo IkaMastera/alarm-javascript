@@ -96,7 +96,7 @@ const createAlarm = (alarmObj) => {
 setAlarm.addEventListener("click", () => {
   alarmIndex += 1;
 
-  let alarmObj = [];
+  let alarmObj = {};
   alarmObj.id = `${alarmIndex}_${hourInput.value}_${minuteInput.value}`;
   alarmObj.alarmHour = hourInput.value;
   alarmObj.alarmMinute = minuteInput.value;
@@ -106,6 +106,24 @@ setAlarm.addEventListener("click", () => {
   hourInput.value = appendZero(initialHour);
   minuteInput.value = appendZero(initialMinute);
 });
+
+//Starting Alarm
+const startAlarm = (e) => {
+  let searchId = e.target.parentElement.getAttribute("data-id");
+  let [exists, obj, index] = searchObject("id", searchId);
+  if (exists) {
+    alarmsArray[index].isActive = true;
+  }
+};
+
+const stopAlarm = (e) => {
+  let searchId = e.target.parentElement.getAttribute("data-id");
+  let [exists, obj, index] = searchObject("id", searchId);
+  if (exists) {
+    alarmsArray[index].isActive = false;
+    alarmSound.pause();
+  }
+};
 
 window.onload = () => {
   setInterval(displayTimer);
