@@ -40,9 +40,7 @@ function displayTimer() {
   //Alarm
   alarmsArray.forEach((alarm, index) => {
     if (alarm.isActive) {
-      if (
-        `${alarm.alarmHour}: ${alarm.alarmMinute}` === `${hours}:${minutes}`
-      ) {
+      if (`${alarm.alarmHour}:${alarm.alarmMinute}` === `${hours}:${minutes}`) {
         alarmSound.play();
         alarmSound.loop = true;
       }
@@ -122,6 +120,15 @@ const stopAlarm = (e) => {
   if (exists) {
     alarmsArray[index].isActive = false;
     alarmSound.pause();
+  }
+};
+
+const deleteAlarm = (e) => {
+  let searchId = e.target.parentElement.parentElement.getAttribute("data-id");
+  let [exists, obj, index] = searchObject("id", searchId);
+  if (exists) {
+    e.target.parentElement.parentElement.remove();
+    alarmsArray.splice(index, 1);
   }
 };
 
